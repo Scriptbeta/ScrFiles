@@ -119,8 +119,9 @@ def coarse_formatter(text):
 
 def immediate_print(msg, text):
     print(msg)
-    for i in text:
-        print(i, end="")
+    print(text, end="")
+    # for i in text:
+        # print(i, end="")
         #sys.stdout.flush()
         #time.sleep(random.random()/20)
 
