@@ -1,4 +1,4 @@
-# -*- coding: gbk -*-
+# -*- coding: utf-8 -*-
 
 # Original work Copyright 2018 The Google AI Language Team Authors.
 # Modified work Copyright 2019 Rowan Zellers
@@ -34,118 +34,118 @@ text2 = ""
 parser = argparse.ArgumentParser(description='Contextual generation (aka given some metadata we will generate articles')
 
 parser.add_argument(
-	'-org_text',
-	dest='org_text',
-	type=str,
-	help='Model_generated article'
+    '-org_text',
+    dest='org_text',
+    type=str,
+    help='Model_generated article'
 )
 
 class AutoFormatter(object):
-	'''线上服务器暂不实例化'''
-	def __init__(self):
-		self.para_limit = total
-		self.result = "  "
-		self.paras
-		pass 
+    '''线上服务器暂不实例化'''
+    def __init__(self):
+        self.para_limit = total
+        self.result = "  "
+        self.paras
+        pass 
 
-	def auto_formatting(self, text):
-		seg = self.para_limit
-		processed = text.split('。')
-		print("split sentence slice: ", processed)
-		lens = len(processed)
-		if(lens >= 10):
-			paras.append(int(0.2 * lens))
-			paras.append(int(para1 + 0.5 * lens))
-			paras.append(int(para2 + 0.3 * lens))
-		else:
-			paras.append(3)
-			paras.append(lens - 5)
-			paras.append(lens - 3)
-		for pos in paras:
-			# 按照高考作文要求，为每一个段首加空格
-			result = result +  "    " + processed[para1]
-			result += '。\n'
-		print("formatted paragraph: ", result)
+    def auto_formatting(self, text):
+        seg = self.para_limit
+        processed = text.split('。')
+        print("split sentence slice: ", processed)
+        lens = len(processed)
+        if(lens >= 10):
+            paras.append(int(0.2 * lens))
+            paras.append(int(para1 + 0.5 * lens))
+            paras.append(int(para2 + 0.3 * lens))
+        else:
+            paras.append(3)
+            paras.append(lens - 5)
+            paras.append(lens - 3)
+        for pos in paras:
+            # 按照高考作文要求，为每一个段首加空格
+            result = result +  "    " + processed[para1]
+            result += '。\n'
+        print("formatted paragraph: ", result)
 
 def coarse_formatter(text):
-	'''第一版排版器'''
-	paras = []
-	final = ""
-	text_list = text.split("。")
-	# text_list = text_list[:15]
-	if text_list[-1] != '':
-		text_list = text_list[:-1]
-	# print("去掉尾部后为：", text_list)
-	# 分段落，开头3句为段首，中间5句为段中，最后5句为段尾
-	# print("split sentence slice lens: ", len(text_list))
-	count = 3
-	lens =  len(text_list)
-	paras.append(text_list[:3])
-	if(lens >= 10):
-		while count < lens - 5:
-			#print("para: ", para ," | final: ", lens - 8)
-			paras.append(text_list[para:para+5])
-			count += 5
-		# print("现在添加段尾：", text_list[para:-1])
-		if count == lens - 1:
-			pass
-		else:
-			paras.append(text_list[count:-1])
-	else:
-		paras.append(3)
-		paras.append(lens - 5)
-		paras.append(lens - 3)
-	# print("最终段落为：", paras)
-	for para in paras:
-		# print("paras: ", para)
-		if len(para) == 1:
-			final += "    " + para[0] + "。\n"
-		else:
-			count = 0
-			for p in para:
-				#print("p: ", p)
-				if(count == 0):
-					final +=  "    " + p + "。"
-				elif(count != len(para)-1):
-					final += p + "。"
-				else:
-					final += "\n"
-				count += 1
-	print("\n")
-		
-	# print("最终文本为：\n", final)
-	return final
+    '''第一版排版器'''
+    paras = []
+    final = ""
+    text_list = text.split("。")
+    # text_list = text_list[:15]
+    if text_list[-1] != '':
+        text_list = text_list[:-1]
+    # print("去掉尾部后为：", text_list)
+    # 分段落，开头3句为段首，中间5句为段中，最后5句为段尾
+    # print("split sentence slice lens: ", len(text_list))
+    count = 3
+    lens =  len(text_list)
+    paras.append(text_list[:3])
+    if(lens >= 10):
+        while count < lens - 5:
+            # print("para: ", count ," | final: ", lens - 8)
+            paras.append(text_list[count:count+5])
+            count += 5
+        # print("现在添加段尾：", text_list[count:-1])
+        if count == lens - 1:
+            pass
+        else:
+            paras.append(text_list[count:-1])
+    else:
+        paras.append(3)
+        paras.append(lens - 5)
+        paras.append(lens - 3)
+    # print("最终段落为：", paras)
+    for para in paras:
+        # print("paras: ", para)
+        if len(para) == 1:
+            final += "    " + para[0] + "。\n"
+        else:
+            count = 0
+            for p in para:
+                # print("p:{0}  c:{1}".format(p, count))
+                if(count == 0):
+                    final +=  "    " + p + "。"
+                elif(count != len(para)-1):
+                    final += p + "。"
+                else:
+                    final += p + "。\n"
+                count += 1
+    print("\n")
+        
+    # print("最终文本为：\n", final)
+    return final
 
 
 def immediate_print(msg, text):
     print(msg)
     for i in text:
         print(i, end="")
-        sys.stdout.flush()
-        time.sleep(random.random()/20)
+        #sys.stdout.flush()
+        #time.sleep(random.random()/20)
 
 if __name__ == "__main__":
-	#try:
-	step = 125
-	args = parser.parse_args()
-	print("the lens: ", int(len(text)/step))
-	with open(args.org_text, 'r',encoding='UTF-8') as f:
-		text = f.read()
-
-	final_output = coarse_formatter(text)
-	immediate_print('排版结束，正在输出...', final_output)
-	text_list = text.split("。")
-	# print("sequence list: ", text_list)
-	#for seq in text_list:
-		# print("start: ", pre ," end : ",pre + step)
-		# if(pre + step) >= len(text):
-		# seg = get_value(access_token, seq)
-		#print("seg: ", seg)
-		#scores = float(seg.split(":")[-1].strip('}'))
-		#result.append(scores)
-	#except:
-		#print("scoring api has failed...")
-	# dicts = result[0].split(":")
-	# plexity = result.get['ppl']
-	# print("the final ppl score is: \n")
-	#print(sum(result))
+    #try:
+    step = 125
+    args = parser.parse_args()
+    print("the lens: ", int(len(text)/step))
+    with open(args.org_text, 'r',encoding='UTF-8') as f:
+        text = f.read()
+    
+        final_output = coarse_formatter(text)
+        immediate_print('排版结束，正在输出...', final_output)
+        #text_list = text.split("。")
+    # print("sequence list: ", text_list)
+    #for seq in text_list:
+        # print("start: ", pre ," end : ",pre + step)
+        # if(pre + step) >= len(text):
+        # seg = get_value(access_token, seq)
+        #print("seg: ", seg)
+        #scores = float(seg.split(":")[-1].strip('}'))
+        #result.append(scores)
+    #except:
+        #print("scoring api has failed...")
+    # dicts = result[0].split(":")
+    # plexity = result.get['ppl']
+    # print("the final ppl score is: \n")
+    #print(sum(result))
