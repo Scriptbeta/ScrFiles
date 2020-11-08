@@ -213,7 +213,7 @@ with tf.compat.v1.Session(config=tf_config, graph=tf.Graph()) as sess:
 
             l = re.findall('.{1,70}', gens[0].replace('[UNK]', '').replace('##', ''))
             
-            f = open("result.txt",'w')
+            f = open("result_" + str(i) + ".txt",'w')
             f.write("".join(l))
             f.close()
             
