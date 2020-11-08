@@ -213,11 +213,10 @@ with tf.compat.v1.Session(config=tf_config, graph=tf.Graph()) as sess:
 
             l = re.findall('.{1,70}', gens[0].replace('[UNK]', '').replace('##', ''))
             
-            f = open("result_" + str(i) + ".txt",'w')
-            f.write("".join(l))
-            f.close()
+            with open("result.txt",'w') as f:
+                f.write("".join(l))
             
-            print("EssayKilelr正在飞速排版中，请稍后......\n")
+            print("EssayKiller正在飞速排版中，请稍后......\n")
             try:
                 final_output = coarse_formatter("".join(l))
                 immediate_print('排版结束，正在输出......\n', final_output)
